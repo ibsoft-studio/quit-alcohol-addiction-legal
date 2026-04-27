@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support — Soleo: Quit Alcohol</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0d1117;
+      --surface:   #161b24;
+      --border:    #1f2937;
+      --gold:      #d4a853;
+      --gold-dim:  #a07d3a;
+      --text:      #e8e2d9;
+      --muted:     #8a8a8a;
+      --accent:    #c47c2b;
+      --radius:    14px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── BACKGROUND TEXTURE ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 80% 10%, rgba(212,168,83,.07) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 60% at 5%  85%, rgba(196,124,43,.05) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    main { position: relative; z-index: 1; }
+
+    /* ── HEADER ── */
+    header {
+      text-align: center;
+      padding: 72px 24px 56px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo-ring {
+      width: 76px; height: 76px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, #d4a853, #8b5a1a);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 24px;
+      box-shadow: 0 0 40px rgba(212,168,83,.25);
+      font-size: 36px;
+    }
+
+    header h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 400;
+      letter-spacing: -.01em;
+      line-height: 1.15;
+    }
+
+    header h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    header p {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: .95rem;
+      max-width: 400px;
+      margin-left: auto; margin-right: auto;
+    }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── SECTION TITLES ── */
+    .section-label {
+      font-size: .7rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    section {
+      padding: 56px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    section:last-of-type { border-bottom: none; }
+
+    section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.6rem;
+      font-weight: 400;
+      margin-bottom: 28px;
+      line-height: 1.2;
+    }
+
+    /* ── FAQ ── */
+    .faq-list { display: flex; flex-direction: column; gap: 4px; }
+
+    details {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color .2s;
+    }
+
+    details[open] { border-color: var(--gold-dim); }
+
+    details summary {
+      cursor: pointer;
+      padding: 18px 22px;
+      font-weight: 500;
+      font-size: .95rem;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      user-select: none;
+    }
+
+    details summary::-webkit-details-marker { display: none; }
+
+    details summary::after {
+      content: '+';
+      color: var(--gold);
+      font-size: 1.3rem;
+      font-weight: 300;
+      flex-shrink: 0;
+      transition: transform .25s;
+    }
+
+    details[open] summary::after { transform: rotate(45deg); }
+
+    details .answer {
+      padding: 0 22px 20px;
+      color: var(--muted);
+      font-size: .9rem;
+      line-height: 1.75;
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+    }
+
+    details .answer a { color: var(--gold); text-decoration: none; }
+    details .answer a:hover { text-decoration: underline; }
+
+    /* ── CONTACT CARD ── */
+    .contact-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .contact-card p {
+      color: var(--muted);
+      font-size: .92rem;
+      max-width: 480px;
+    }
+
+    .email-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #d4a853, #a07d3a);
+      color: #0d1117;
+      font-weight: 500;
+      font-size: .9rem;
+      padding: 13px 26px;
+      border-radius: 100px;
+      text-decoration: none;
+      letter-spacing: .02em;
+      margin-top: 8px;
+      width: fit-content;
+      transition: opacity .2s, transform .2s;
+    }
+
+    .email-link:hover { opacity: .88; transform: translateY(-1px); }
+
+    .response-note {
+      font-size: .78rem;
+      color: var(--muted);
+      opacity: .7;
+    }
+
+    /* ── PRIVACY BLOCK ── */
+    .privacy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .privacy-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .privacy-icon {
+      font-size: 1.3rem;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .privacy-item strong {
+      display: block;
+      font-size: .88rem;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .privacy-item span {
+      font-size: .82rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ── MEDICAL DISCLAIMER ── */
+    .disclaimer {
+      background: rgba(212,168,83,.05);
+      border: 1px solid rgba(212,168,83,.2);
+      border-left: 3px solid var(--gold-dim);
+      border-radius: var(--radius);
+      padding: 20px 22px;
+      font-size: .85rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .disclaimer strong { color: var(--text); font-weight: 500; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 36px 24px;
+      text-align: center;
+      color: var(--muted);
+      font-size: .8rem;
+      border-top: 1px solid var(--border);
+    }
+
+    footer a { color: var(--gold-dim); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    header, section { animation: fadeUp .6s ease both; }
+    section:nth-of-type(1) { animation-delay: .1s; }
+    section:nth-of-type(2) { animation-delay: .18s; }
+    section:nth-of-type(3) { animation-delay: .26s; }
+    section:nth-of-type(4) { animation-delay: .34s; }
+    section:nth-of-type(5) { animation-delay: .42s; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 540px) {
+      header { padding: 52px 20px 40px; }
+      section { padding: 40px 0; }
+      .contact-card { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+<main>
+
+  <header>
+    <div class="logo-ring">☀️</div>
+    <h1>Soleo: <em>Quit Alcohol</em><br>Support</h1>
+    <p>We're here to help. Find answers below or reach out directly.</p>
+  </header>
+
+  <div class="container">
+
+    <!-- FAQ -->
+    <section>
+      <div class="section-label">Help Center</div>
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-list">
+
+        <details>
+          <summary>How do I restore my PRO purchase after reinstalling?</summary>
+          <div class="answer">
+            Open the app and go to the <strong>Paywall / Upgrade</strong> screen. Tap <strong>"Restore Purchases"</strong> at the bottom. Make sure you're signed into the same Apple ID or Google account you used when you originally purchased. Your PRO access will be restored immediately at no charge.
+          </div>
+        </details>
+
+        <details>
+          <summary>I purchased PRO but the app still shows free content. What do I do?</summary>
+          <div class="answer">
+            First, try tapping <strong>Restore Purchases</strong> on the paywall screen. If that doesn't work, close and reopen the app fully. If the issue persists, make sure your device has an internet connection, then try restarting. Still not working? Email us at <a href="mailto:ibsoft.studio@gmail.com">ibsoft.studio@gmail.com</a> with your Apple/Google account email and we'll sort it out.
+          </div>
+        </details>
+
+        <details>
+          <summary>How do I cancel my subscription?</summary>
+          <div class="answer">
+            <strong>iOS:</strong> Open the Settings app → tap your name → Subscriptions → find Soleo: Quit Alcohol → tap Cancel Subscription.<br><br>
+            <strong>Android:</strong> Open the Google Play app → tap your profile icon → Payments & subscriptions → Subscriptions → find Soleo → tap Cancel subscription.<br><br>
+            You'll keep PRO access until the end of your current billing period.
+          </div>
+        </details>
+
+        <details>
+          <summary>Can I get a refund?</summary>
+          <div class="answer">
+            Refunds are handled directly by Apple or Google, not by us.<br><br>
+            <strong>iOS:</strong> Go to <a href="https://reportaproblem.apple.com" target="_blank">reportaproblem.apple.com</a>, find your purchase, and request a refund.<br><br>
+            <strong>Android:</strong> Open the Google Play app → tap your profile → Payments & subscriptions → Budget & order history → find the order → Request a refund.
+          </div>
+        </details>
+
+        <details>
+          <summary>What's included in the free version vs. PRO?</summary>
+          <div class="answer">
+            <strong>Free:</strong> Chapter 1 (7 articles, flashcards & quiz), the live sobriety timer, and limited craving log entries.<br><br>
+            <strong>PRO:</strong> All 20 chapters (140 articles), unlimited craving tracking, full analytics &amp; heatmaps, all 7-day recovery challenges, all 5 breathing exercises, all themes, and all future content updates.
+          </div>
+        </details>
+
+        <details>
+          <summary>I accidentally logged a drink (slip). Can I undo it?</summary>
+          <div class="answer">
+            Yes. Go to the <strong>Timer / Streak</strong> tab. You'll find an option to edit or reset your sobriety start date. Logging a slip is intentional — the app is designed to help you keep going without shame, not to judge. You can always adjust and continue your journey.
+          </div>
+        </details>
+
+        <details>
+          <summary>Does the app work offline?</summary>
+          <div class="answer">
+            Yes. All content — articles, flashcards, breathing exercises, and the sobriety timer — works fully offline. Your data is stored locally on your device. An internet connection is only needed when purchasing or restoring PRO access.
+          </div>
+        </details>
+
+        <details>
+          <summary>Will I lose my data if I delete and reinstall the app?</summary>
+          <div class="answer">
+            Currently, your progress (sobriety start date, craving logs, XP) is stored locally on your device. Uninstalling the app will delete this data. We recommend noting your sobriety start date before uninstalling so you can re-enter it after reinstalling. Your <strong>PRO purchase</strong> is always restorable via Restore Purchases.
+          </div>
+        </details>
+
+        <details>
+          <summary>The app crashed or isn't loading. What should I try?</summary>
+          <div class="answer">
+            1. Close the app fully and reopen it.<br>
+            2. Restart your device.<br>
+            3. Check if an app update is available in the App Store or Google Play.<br>
+            4. If the problem persists, uninstall and reinstall the app (note your sobriety date first).<br><br>
+            If nothing works, please email us at <a href="mailto:ibsoft.studio@gmail.com">ibsoft.studio@gmail.com</a> with your device model and iOS/Android version so we can investigate.
+          </div>
+        </details>
+
+        <details>
+          <summary>Is this app a replacement for medical treatment?</summary>
+          <div class="answer">
+            No. Soleo is a self-help education and habit-tracking tool. It is not a substitute for professional medical care. If you are experiencing severe withdrawal symptoms — such as seizures, hallucinations, or severe shaking — please seek emergency medical care immediately. Alcohol withdrawal can be life-threatening.
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section>
+      <div class="section-label">Contact</div>
+      <h2>Still Need Help?</h2>
+      <div class="contact-card">
+        <p>We read every message and typically reply within 1–2 business days. Please include your device type and a brief description of the issue.</p>
+        <a class="email-link" href="mailto:ibsoft.studio@gmail.com?subject=Soleo%3A%20Quit%20Alcohol%20%E2%80%94%20Support">
+          ✉ ibsoft.studio@gmail.com
+        </a>
+        <span class="response-note">Response time: 1–2 business days · Mon–Fri</span>
+      </div>
+    </section>
+
+    <!-- PRIVACY -->
+    <section>
+      <div class="section-label">Privacy</div>
+      <h2>Your Data & Privacy</h2>
+      <div class="privacy-grid">
+        <div class="privacy-item">
+          <div class="privacy-icon">📱</div>
+          <div>
+            <strong>Local Storage Only</strong>
+            <span>All your progress, logs, and journal entries are stored on your device. We never see them.</span>
+          </div>
+        </div>
+        <div class="privacy-item">
+          <div class="privacy-icon">🔒</div>
+          <div>
+            <strong>No Account Required</strong>
+            <span>No sign-up, no login, no email address needed to use the app.</span>
+          </div>
+        </div>
+        <div class="privacy-item">
+          <div class="privacy-icon">💳</div>
+          <div>
+            <strong>Purchases via Apple / Google</strong>
+            <span>Payments are processed entirely by Apple or Google. We never handle your card details.</span>
+          </div>
+        </div>
+        <div class="privacy-item">
+          <div class="privacy-icon">🚫</div>
+          <div>
+            <strong>No Ads. Ever.</strong>
+            <span>We don't run ads, sell data, or share anything with advertisers.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DISCLAIMER -->
+    <section>
+      <div class="section-label">Medical Disclaimer</div>
+      <h2>Important Health Notice</h2>
+      <div class="disclaimer">
+        <strong>This app does not provide medical advice.</strong> The content in Soleo: Quit Alcohol is for educational and self-help purposes only. It is not intended to diagnose, treat, cure, or prevent any health condition and is not a substitute for professional medical advice, diagnosis, or treatment.<br><br>
+        <strong>If you are experiencing severe alcohol withdrawal symptoms</strong> — including seizures, hallucinations, confusion, or severe tremors — please call emergency services or go to the nearest emergency room immediately. Severe alcohol withdrawal can be life-threatening and requires medical supervision.
+      </div>
+    </section>
+
+  </div><!-- /container -->
+
+</main>
+
+<footer>
+  <p>© 2026 IBSoft · Soleo: Quit Alcohol · Built in Chișinău, Moldova</p>
+  <p style="margin-top:6px;"><a href="mailto:ibsoft.studio@gmail.com">ibsoft.studio@gmail.com</a></p>
+</footer>
+
+</body>
+</html>
